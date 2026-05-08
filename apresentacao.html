@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Síndrome do Impostor — BNI Porto</title>
+    <title>Síndrome do Impostor — BNI UP</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -130,20 +130,32 @@
         #qrcode { display: flex; justify-content: center; margin: 8px 0; }
         .slide-cta .url-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
 
-        .slide-timeline { text-align: left; max-width: 700px; width: 100%; }
-        .slide-timeline h2 { font-size: 28px; font-weight: 800; margin-bottom: 24px; text-align: center; }
-        .timeline-row {
-            display: flex; align-items: center; gap: 16px;
-            padding: 14px 0; border-bottom: 1px solid var(--border);
-        }
-        .timeline-row:last-child { border-bottom: none; }
-        .timeline-row .time {
-            font-size: 14px; font-weight: 700; color: var(--accent-light); min-width: 80px;
-        }
-        .timeline-row .desc { font-size: 17px; color: var(--muted); }
-        .timeline-row .desc strong { color: var(--text); }
-
         .emoji-big { font-size: 80px; margin-bottom: 20px; }
+
+        .bni-logo-slide {
+            width: 220px;
+            margin: 0 auto 24px;
+            display: block;
+        }
+
+        .btn-quiz {
+            display: inline-block;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .btn-quiz:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(99, 102, 241, 0.4); }
 
         /* KEYBOARD HINT */
         .key-hint {
@@ -159,13 +171,15 @@
             .slide-stat .big-number { font-size: 80px; }
             .slide-quote blockquote { font-size: 22px; }
             .slide-list .item { font-size: 15px; }
+            .bni-logo-slide { width: 160px; }
         }
     </style>
 </head>
 <body>
     <!-- SLIDE 1: TITLE -->
     <div class="slide slide-title active" id="s1">
-        <div class="tag">BNI PORTO</div>
+        <img src="https://www.bni.com/wp-content/uploads/2025/04/BNI-Refresh.png" alt="BNI" class="bni-logo-slide">
+        <div class="tag">BNI UP</div>
         <h1>Síndrome do Impostor</h1>
         <p class="subtitle">O que é, como afeta os teus negócios, e o que podes fazer hoje</p>
     </div>
@@ -193,19 +207,19 @@
         <h2>O que é a Síndrome do Impostor?</h2>
         <div class="item">
             <span class="item-icon">🧠</span>
-            <div><strong>Um padrão de pensamento</strong> <span>— não um diagnóstico clínico. Mas com impacto real.</span></div>
+            <div><strong>Um padrão de pensamento.</strong> <span>Não um diagnóstico clínico. Mas com impacto real.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🔬</span>
-            <div><strong>Identificado em 1978</strong> <span>— pelas psicólogas Pauline Clance e Suzanne Imes.</span></div>
+            <div><strong>Identificado em 1978.</strong> <span>Pelas psicólogas Pauline Clance e Suzanne Imes.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🎭</span>
-            <div><strong>A crença de que não mereces o teu sucesso</strong> <span>— apesar de evidência objetiva em contrário.</span></div>
+            <div><strong>A crença de que não mereces o teu sucesso.</strong> <span>Apesar de evidência objetiva em contrário.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🤫</span>
-            <div><strong>O medo de ser "descoberto"</strong> <span>— como se fosse uma fraude que vai ser exposta.</span></div>
+            <div><strong>O medo de ser "descoberto".</strong> <span>Como se fosse uma fraude que vai ser exposta.</span></div>
         </div>
     </div>
 
@@ -229,23 +243,23 @@
         <h2>Os 5 Tipos de Impostor</h2>
         <div class="item">
             <span class="item-icon">🎯</span>
-            <div><strong>O Perfeccionista</strong> <span>— se não é perfeito, é um fracasso.</span></div>
+            <div><strong>O Perfeccionista.</strong> <span>Se não é perfeito, é um fracasso.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">📚</span>
-            <div><strong>O Expert</strong> <span>— precisa de saber tudo antes de agir.</span></div>
+            <div><strong>O Expert.</strong> <span>Precisa de saber tudo antes de agir.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">⚡</span>
-            <div><strong>O Génio Natural</strong> <span>— se precisa de esforço, não é bom o suficiente.</span></div>
+            <div><strong>O Génio Natural.</strong> <span>Se precisa de esforço, não é bom o suficiente.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🦸</span>
-            <div><strong>O Super-homem</strong> <span>— precisa de trabalhar mais que todos para "merecer".</span></div>
+            <div><strong>O Super-homem.</strong> <span>Precisa de trabalhar mais que todos para "merecer".</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🧑‍🤝‍🧑</span>
-            <div><strong>O Solo</strong> <span>— faz tudo sozinho porque pedir ajuda é fraqueza.</span></div>
+            <div><strong>O Solo.</strong> <span>Faz tudo sozinho porque pedir ajuda é fraqueza.</span></div>
         </div>
     </div>
 
@@ -260,19 +274,19 @@
         <h2>O Impostor no BNI</h2>
         <div class="item">
             <span class="item-icon">💰</span>
-            <div><strong>Desconto permanente</strong> <span>— cobras menos porque achas que não vale mais.</span></div>
+            <div><strong>Desconto permanente.</strong> <span>Cobras menos porque achas que não vale mais.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🙈</span>
-            <div><strong>Evitação de referências</strong> <span>— não pedes porque "não mereço" ou "não sou bom o suficiente".</span></div>
+            <div><strong>Evitação de referências.</strong> <span>Não pedes porque "não mereço" ou "não sou bom o suficiente".</span></div>
         </div>
         <div class="item">
             <span class="item-icon">😰</span>
-            <div><strong>60 segundos com medo</strong> <span>— falas rápido, subvalorizas o teu trabalho.</span></div>
+            <div><strong>60 segundos com medo.</strong> <span>Falas rápido, subvalorizas o teu trabalho.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🔥</span>
-            <div><strong>Exaustão</strong> <span>— trabalhas o dobro para "compensar" a tua percebida incompetência.</span></div>
+            <div><strong>Exaustão.</strong> <span>Trabalhas o dobro para "compensar" a tua percebida incompetência.</span></div>
         </div>
     </div>
 
@@ -294,19 +308,19 @@
         <h2>Porquê?</h2>
         <div class="item">
             <span class="item-icon">🎤</span>
-            <div><strong>60 segundos semanais</strong> <span>— exposição repetida reduz a voz do impostor. É terapia de exposição.</span></div>
+            <div><strong>60 segundos semanais.</strong> <span>Exposição repetida reduz a voz do impostor. É terapia de exposição.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🤝</span>
-            <div><strong>1-to-1s</strong> <span>— ouvir que outros passam pelo mesmo é poderoso. O impostor adora o silêncio.</span></div>
+            <div><strong>1-to-1s.</strong> <span>Ouvir que outros passam pelo mesmo é poderoso. O impostor adora o silêncio.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🎁</span>
-            <div><strong>Givers Gain</strong> <span>— ao ajudar outros, recebes validação concreta. Cada referência é prova de valor.</span></div>
+            <div><strong>Givers Gain.</strong> <span>Ao ajudar outros, recebes validação concreta. Cada referência é prova de valor.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">📊</span>
-            <div><strong>TYFCB</strong> <span>— cada negócio fechado é evidência objetiva de que o impostor mente.</span></div>
+            <div><strong>TYFCB.</strong> <span>Cada negócio fechado é evidência objetiva de que o impostor mente.</span></div>
         </div>
     </div>
 
@@ -315,15 +329,15 @@
         <h2>3 Ações para Hoje</h2>
         <div class="item">
             <span class="item-icon">📝</span>
-            <div><strong>Diário de Vitórias</strong> <span>— regista cada referência, TYFCB e feedback positivo. Quando o impostor falar, lê o caderno.</span></div>
+            <div><strong>Diário de Vitórias.</strong> <span>Regista cada referência, TYFCB e feedback positivo. Quando o impostor falar, lê o caderno.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🗣️</span>
-            <div><strong>Fala sobre isto</strong> <span>— marca um 1-to-1 e partilha. Normalizar a experiência reduz o seu poder.</span></div>
+            <div><strong>Fala sobre isto.</strong> <span>Marca um 1-to-1 e partilha. Normalizar a experiência reduz o seu poder.</span></div>
         </div>
         <div class="item">
             <span class="item-icon">🎯</span>
-            <div><strong>Reenquadra o erro</strong> <span>— erros são dados, não déficits de carácter. Cada falha é informação valiosa.</span></div>
+            <div><strong>Reenquadra o erro.</strong> <span>Erros são dados, não déficits de carácter. Cada falha é informação valiosa.</span></div>
         </div>
     </div>
 
@@ -336,14 +350,15 @@
     <!-- SLIDE 15: QUIZ CTA -->
     <div class="slide slide-cta" id="s15">
         <div class="emoji-big">🧠</div>
-        <h2>Testa o que aprendeste</h2>
-        <p>12 perguntas interativas sobre Síndrome do Impostor e BNI</p>
+        <h2>Testa o teu nível de Impostor</h2>
+        <p>Auto-avaliação rápida: 10 perguntas Sim/Não baseadas em situações reais do BNI</p>
         <div class="qr-box">
             <h3>📱 Escaneia com o telemóvel</h3>
             <div id="qrcode"></div>
             <div class="url-hint" id="urlHint"></div>
             <noscript><p style="margin-top:12px;font-size:14px;color:var(--accent-light);">https://russodrl.github.io/bni-quiz/</p></noscript>
         </div>
+        <a href="https://russodrl.github.io/bni-quiz/" class="btn-quiz">Abrir Quiz ▸</a>
     </div>
 
     <!-- NAVIGATION -->
@@ -355,15 +370,15 @@
     </div>
 
     <script>
-        const slides = document.querySelectorAll('.slide');
-        let current = 0;
+        var slides = document.querySelectorAll('.slide');
+        var current = 0;
 
         function show(n) {
             slides[current].classList.remove('active');
             current = Math.max(0, Math.min(n, slides.length - 1));
             slides[current].classList.add('active');
-            document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
-            document.getElementById('progressMini').style.width = `${((current + 1) / slides.length) * 100}%`;
+            document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+            document.getElementById('progressMini').style.width = (((current + 1) / slides.length) * 100) + '%';
             // Hide nav bar on last slide (QR code slide)
             document.querySelector('.nav').style.display = (current === slides.length - 1) ? 'none' : 'flex';
         }
@@ -372,7 +387,7 @@
         function prev() { show(current - 1); }
 
         // Keyboard nav
-        document.addEventListener('keydown', e => {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); next(); }
             if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prev(); }
             if (e.key === 'Home') { e.preventDefault(); show(0); }
@@ -380,38 +395,36 @@
         });
 
         // Touch nav
-        let touchStartX = 0;
-        document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
-        document.addEventListener('touchend', e => {
-            const diff = touchStartX - e.changedTouches[0].clientX;
+        var touchStartX = 0;
+        document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', function(e) {
+            var diff = touchStartX - e.changedTouches[0].clientX;
             if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
         });
 
         // Click nav (left third = prev, right two-thirds = next)
-        document.addEventListener('click', e => {
+        document.addEventListener('click', function(e) {
             if (e.target.closest('.nav') || e.target.closest('button') || e.target.closest('a')) return;
             e.clientX < window.innerWidth / 3 ? prev() : next();
         });
 
-        // QR Code — inline generation (no CDN dependency)
+        // QR Code
         function generateQR() {
-            const quizUrl = 'https://russodrl.github.io/bni-quiz/';
+            var quizUrl = 'https://russodrl.github.io/bni-quiz/';
             document.getElementById('urlHint').textContent = quizUrl;
-            // Use API fallback for reliability
-            const img = document.createElement('img');
+            var img = document.createElement('img');
             img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(quizUrl);
             img.alt = 'QR Code para o Quiz';
             img.style.width = '200px';
             img.style.height = '200px';
             img.style.borderRadius = '8px';
             img.onerror = function() {
-                // Final fallback: show URL text
                 document.getElementById('qrcode').innerHTML = '<p style="font-size:14px;color:var(--accent-light);word-break:break-all;">' + quizUrl + '</p>';
             };
             document.getElementById('qrcode').appendChild(img);
         }
 
-        window.onload = () => { show(0); generateQR(); };
+        window.onload = function() { show(0); generateQR(); };
     </script>
 </body>
 </html>

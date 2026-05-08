@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Síndrome do Impostor — BNI Porto</title>
+    <title>Síndrome do Impostor — BNI UP</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
@@ -89,6 +89,12 @@
             letter-spacing: 1px;
         }
 
+        .bni-logo {
+            width: 160px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
         .qr-section {
             background: var(--card);
             border: 1px solid var(--border);
@@ -154,23 +160,7 @@
         }
 
         .question-num { font-size: 13px; color: var(--muted); font-weight: 600; }
-        .score-display { font-size: 13px; color: var(--green); font-weight: 600; }
-
-        .category-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-
-        .cat-science { background: rgba(99, 102, 241, 0.15); color: var(--accent-light); }
-        .cat-bni { background: rgba(0, 102, 204, 0.15); color: #60a5fa; }
-        .cat-business { background: rgba(245, 158, 11, 0.15); color: var(--orange); }
-        .cat-myth { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-        .cat-tip { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+        .score-display { font-size: 13px; color: var(--red); font-weight: 600; }
 
         .question-card {
             background: var(--card);
@@ -204,8 +194,8 @@
 
         .option:hover { border-color: var(--accent); background: rgba(99, 102, 241, 0.05); }
         .option.selected { border-color: var(--accent); background: rgba(99, 102, 241, 0.1); }
-        .option.correct { border-color: var(--green); background: rgba(34, 197, 94, 0.1); }
-        .option.wrong { border-color: var(--red); background: rgba(239, 68, 68, 0.1); }
+        .option.yes { border-color: var(--orange); background: rgba(245, 158, 11, 0.1); }
+        .option.no { border-color: var(--green); background: rgba(34, 197, 94, 0.1); }
 
         .option .letter {
             width: 32px;
@@ -221,9 +211,8 @@
             transition: all 0.2s;
         }
 
-        .option.selected .letter { background: var(--accent); color: white; }
-        .option.correct .letter { background: var(--green); color: white; }
-        .option.wrong .letter { background: var(--red); color: white; }
+        .option.yes .letter { background: var(--orange); color: white; }
+        .option.no .letter { background: var(--green); color: white; }
 
         .explanation {
             margin-top: 16px;
@@ -312,19 +301,6 @@
         .tip-card li:last-child { border-bottom: none; }
         .tip-card li strong { color: var(--text); }
 
-        .presenter-badge {
-            margin-top: 32px;
-            padding: 20px 28px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            display: inline-block;
-        }
-
-        .presenter-badge .name { font-weight: 700; font-size: 16px; }
-        .presenter-badge .role { font-size: 12px; color: var(--muted); }
-        .presenter-badge .company { font-size: 14px; color: var(--accent-light); }
-
         @media (max-width: 480px) {
             .welcome h1 { font-size: 21px; }
             .question-card h2 { font-size: 15px; }
@@ -347,10 +323,11 @@
         <!-- WELCOME -->
         <div id="welcome" class="screen active welcome">
             <div class="welcome-icon">🧠</div>
-            <div class="bni-tag">BNI PORTO</div>
-            <h1>Síndrome do Impostor<br>&amp; o Mundo do Networking</h1>
-            <p>Quanto sabes sobre o fenómeno que afeta <strong>70% das pessoas</strong> e como ele impacta diretamente os teus negócios e referências?</p>
-            <p style="font-size:13px; color:#52525b; margin-bottom:4px;">12 perguntas • ~3 min • Aprende enquanto jogas</p>
+            <img src="https://www.bni.com/wp-content/uploads/2025/04/BNI-Refresh.png" alt="BNI" class="bni-logo">
+            <div class="bni-tag">BNI UP</div>
+            <h1>Tens Síndrome do Impostor?</h1>
+            <p>Responde a 10 perguntas com <strong>Sim</strong> ou <strong>Não</strong> e descobre como a síndrome do impostor pode estar a afetar o teu networking e negócios no BNI.</p>
+            <p style="font-size:13px; color:#52525b; margin-bottom:4px;">10 perguntas • ~2 min • Auto-avaliação</p>
 
             <div class="qr-section">
                 <h3>📱 Abra no telemóvel</h3>
@@ -358,25 +335,20 @@
                 <div class="url-text" id="urlDisplay"></div>
             </div>
 
-            <button class="btn btn-primary" onclick="startQuiz()">Começar o Quiz ▸</button>
-            <br><br>
-            <a href="roteiro.html" style="color: var(--accent-light); font-size: 14px; text-decoration: none; font-weight: 600;">📄 Ver Roteiro</a>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <a href="apresentacao.html" style="color: var(--accent-light); font-size: 14px; text-decoration: none; font-weight: 600;">📊 Ver Apresentação</a>
+            <button class="btn btn-primary" onclick="startQuiz()">Começar a Auto-Avaliação ▸</button>
         </div>
 
         <!-- QUIZ -->
         <div id="quiz" class="screen">
             <div class="quiz-header">
-                <span class="question-num" id="questionNum">1 / 12</span>
-                <span class="score-display" id="scoreDisplay">✓ 0</span>
+                <span class="question-num" id="questionNum">1 / 10</span>
+                <span class="score-display" id="scoreDisplay">Sim: 0</span>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
 
             <div class="question-card">
-                <div id="categoryBadge"></div>
                 <h2 id="questionText"></h2>
             </div>
 
@@ -396,16 +368,16 @@
 
             <div class="stats">
                 <div class="stat">
-                    <div class="num" id="statCorrect">0</div>
-                    <div class="label">Corretas</div>
+                    <div class="num" id="statYes">0</div>
+                    <div class="label">Respostas Sim</div>
                 </div>
                 <div class="stat">
-                    <div class="num" id="statWrong">0</div>
-                    <div class="label">Erradas</div>
+                    <div class="num" id="statNo">0</div>
+                    <div class="label">Respostas Não</div>
                 </div>
                 <div class="stat">
                     <div class="num" id="statPercent">0%</div>
-                    <div class="label">Acerto</div>
+                    <div class="label">Sinais de Impostor</div>
                 </div>
             </div>
 
@@ -423,193 +395,82 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-
     <script>
         const questions = [
-            // 1 — CIENTÍFICO
             {
-                cat: "ciência", catLabel: "CIÊNCIA", catClass: "cat-science",
-                question: "Quem cunhou o termo \"síndrome do impostor\" e em que ano?",
-                options: [
-                    "Sigmund Freud, em 1910",
-                    "Pauline Clance e Suzanne Imes, em 1978",
-                    "Brené Brown, em 2010",
-                    "Carl Jung, em 1945"
-                ],
-                correct: 1,
-                explanation: "<strong>Clance e Imes</strong> publicaram o estudo original em 1978, investigando mulheres de alto sucesso académico que sentiam que não mereciam os resultados. O fenómeno já era conhecido, mas elas deram-lhe nome e estrutura científica."
+                question: "Já cobraste menos do que o justo por achares que o teu serviço não vale mais?",
+                explanation: "Descontar por insegurança é um dos sinais mais comuns. O impostor diz que não vales o preço justo. No BNI, onde a confiança é a moeda, isto mina diretamente a tua receita."
             },
-            // 2 — BNI
             {
-                cat: "bni", catLabel: "BNI", catClass: "cat-bni",
-                question: "Numa reunião BNI, fazes a tua apresentação de 60 segundos. O impostor interno provavelmente vai dizer-te:",
-                options: [
-                    "\"O teu negócio é fixe, fala à vontade\"",
-                    "\"Ninguém quer ouvir sobre o teu trabalho, não acrescenta nada\"",
-                    "\"Prepara bem e vai correr bem\"",
-                    "\"Os outros são todos melhores que tu\""
-                ],
-                correct: 1,
-                explanation: "O impostor <strong>sabota a comunicação</strong>. No BNI, onde falas do teu valor todas as semanas, esta voz pode fazer-te subvalorizar o teu trabalho, falar rápido demais ou evitar pedir referências. Reconhecer esta voz é o primeiro passo para a silenciar."
+                question: "Evitas pedir referências porque sentes que não mereces ou que não és bom o suficiente?",
+                explanation: "Pedir referências é o coração do BNI. Se evitas pedir, o impostor está a controlar o teu crescimento. Cada referência não pedida é um negócio perdido."
             },
-            // 3 — CIENTÍFICO
             {
-                cat: "ciência", catLabel: "CIÊNCIA", catClass: "cat-science",
-                question: "A síndrome do impostor é reconhecida como diagnóstico clínico no DSM-5 (manual de psiquiatria).",
-                options: ["Verdadeiro", "Falso"],
-                correct: 1,
-                explanation: "<strong>Falso.</strong> Não é um diagnóstico oficial, mas um padrão de pensamento amplamente estudado. Não ter \"rótulo clínico\" não diminui o impacto: afeta produtividade, decisões de carreira e relações profissionais."
+                question: "Nos 60 segundos, falas rápido e baixo porque achas que o que tens para dizer não é interessante?",
+                explanation: "A apresentação de 60 segundos é a tua vitrine semanal. Se o impostor te faz falar com medo, a sala não consegue perceber o teu valor. Treinar ajuda a silenciar essa voz."
             },
-            // 4 — BNI / NEGÓCIO
             {
-                cat: "negócio", catLabel: "NEGÓCIO", catClass: "cat-business",
-                question: "No BNI, pedir referências é parte essencial. Como a síndrome do impostor afeta diretamente isto?",
-                options: [
-                    "Faz-nos pedir referências com mais confiança",
-                    "Faz-nos evitar pedir porque achamos que não merecemos",
-                    "Não tem impacto nas referências",
-                    "Faz-nos pedir referências para outros, mas nunca para nós"
-                ],
-                correct: 1,
-                explanation: "O impostor cria a crença de que <strong>\"não mereço\"</strong> ou que \"se pedir, vão descobrir que não sou tão bom\". Resultado: menos referências pedidas, menos negócios fechados. É um impacto direto e mensurável na tua receita."
+                question: "Quando recebes uma referência, pensas logo que foi sorte ou que o colega fez por pena?",
+                explanation: "Minimizar conquistas é clássico do impostor. Uma referência no BNI é o resultado da confiança que outros depositam em ti. Não é sorte, é mérito."
             },
-            // 5 — MITO
             {
-                cat: "mito", catLabel: "MITO", catClass: "cat-myth",
-                question: "\"Síndrome do impostor é só insegurança. Basta ter mais confiança.\" — Isto é:",
-                options: [
-                    "Verdadeiro, confiança resolve tudo",
-                    "Parcialmente verdadeiro",
-                    "Falso, é um padrão cognitivo mais profundo",
-                    "Só verdadeiro para empreendedores"
-                ],
-                correct: 2,
-                explanation: "É <strong>falso</strong>. A síndrome do impostor é um padrão cognitivo que persiste mesmo perante evidência objetiva de sucesso. Não se resolve com \"pensamento positivo\" — requer reconhecimento, conversa e, por vezes, trabalho estruturado."
+                question: "Evitas fazer 1-to-1s porque achas que não tens nada de valor para oferecer ao outro?",
+                explanation: "O 1-to-1 é uma via de mão dupla. Se evitas, estás a privar outros do teu conhecimento e contactos. Givers Gain começa por acreditar que tens algo para dar."
             },
-            // 6 — BNI
             {
-                cat: "bni", catLabel: "BNI", catClass: "cat-bni",
-                question: "O princípio \"Givers Gain\" do BNI é um antídoto natural contra a síndrome do impostor. Porquê?",
-                options: [
-                    "Porque ganhar dinheiro elimina a insegurança",
-                    "Porque ao ajudar outros, recebes feedback positivo que combate a voz do impostor",
-                    "Porque distrai a mente dos pensamentos negativos",
-                    "Não tem relação nenhuma"
-                ],
-                correct: 1,
-                explanation: "Quando <strong>passes uma referência</strong> e ela resulta, recebes validação externa concreta. O impostor diz \"não sou bom\" — mas os resultados dizem o contrário. O Givers Gain cria um ciclo de evidência real contra a narrativa do impostor."
+                question: "Trabalhas horas extra antes da apresentação de 10 minutos porque tens medo de não ser bom o suficiente?",
+                explanation: "Preparação é saudável. Mas se trabalhas por medo e não por entusiasmo, o impostor está ao leme. A diferença está na motivação: medo vs. entrega."
             },
-            // 7 — NEGÓCIO
             {
-                cat: "negócio", catLabel: "NEGÓCIO", catClass: "cat-business",
-                question: "Segundo estudos, qual o impacto mais comum da síndrome do impostor nos negócios?",
-                options: [
-                    "Trabalhar menos por falta de motivação",
-                    "Cobrar menos, evitar oportunidades e trabalhar em excesso para \"compensar\"",
-                    "Tornar-se arrogante para esconder a insegurança",
-                    "Desistir do negócio rapidamente"
-                ],
-                correct: 1,
-                explanation: "Os três impactos reais: <strong>1) Desconto permanente</strong> — cobras menos porque achas que não vale mais. <strong>2) Evitação</strong> — não pedes promoções, referências ou aumentos. <strong>3) Overwork</strong> — trabalhas o dobro para \"provar\" que mereces estar ali."
+                question: "Quando outros membros celebram negócios fechados, sentes que tu nunca vais chegar a esse nível?",
+                explanation: "Comparar-te com os outros alimenta o impostor. Cada negócio fechado por um colega é prova de que o sistema funciona. Inclui-te nessa narrativa."
             },
-            // 8 — BNI
             {
-                cat: "bni", catLabel: "BNI", catClass: "cat-bni",
-                question: "Fazes um 1-to-1 com um colega do BNI e ele diz-te: \"Às vezes sinto que não mereço estar aqui.\" A tua melhor resposta é:",
-                options: [
-                    "\"Isso é normal, já me senti assim também. O que te fez pensar isso?\"",
-                    "\"Não digas isso, tu és ótimo!\"",
-                    "\"Tens de ser mais positivo\"",
-                    "\"Ninguém pensa isso de ti, relaxa\""
-                ],
-                correct: 0,
-                explanation: "<strong>Validar</strong> é mais poderoso do que minimizar. Dizer \"é normal, já me senti assim\" normaliza a experiência e abre espaço para conversa real. Minimizar (\"és ótimo!\") pode parecer simpático, mas muitas vezes invalida o sentimento."
+                question: "Se alguém te elogia publicamente no BNI, ficas constrangido e mudas de tema?",
+                explanation: "Não sabes receber elogios? É o impostor a dizer que não mereces. Aprender a receber feedback positivo é uma habilidade tão importante como dar."
             },
-            // 9 — CIENTÍFICO
             {
-                cat: "ciência", catLabel: "CIÊNCIA", catClass: "cat-science",
-                question: "Qual grupo de pessoas experienciam MAIS a síndrome do impostor?",
-                options: [
-                    "Pessoas com baixa escolaridade",
-                    "Pessoas com alto sucesso e competência",
-                    "Apenas pessoas introvertidas",
-                    "Não existe diferença entre grupos"
-                ],
-                correct: 1,
-                explanation: "Paradoxalmente, <strong>quanto mais competente</strong> e bem-sucedida a pessoa, maior a probabilidade de sentir que \"não é suficiente\". O sucesso alimenta o impostor porque cria mais pressão para se manter no nível percebido."
+                question: "Já pensaste em desistir do BNI porque achas que não estás a contribuir o suficiente para o grupo?",
+                explanation: "O impostor adora isolar-te. Se pensas em sair, fala com o teu coordenador ou faz um 1-to-1. Provavelmente, outros sentem o mesmo e a tua presença é mais valiosa do que pensas."
             },
-            // 10 — BNI
             {
-                cat: "bni", catLabel: "BNI", catClass: "cat-bni",
-                question: "O BNI tem uma estrutura semanal com apresentações de 60s e 10 minutos. Isto ajuda ou piora a síndrome do impostor?",
-                options: [
-                    "Piora, porque obriga a falar em público todas as semanas",
-                    "Ajuda, porque a exposição repetida reduz o poder do impostor",
-                    "Depende da personalidade de cada um",
-                    "Não tem qualquer efeito"
-                ],
-                correct: 1,
-                explanation: "A <strong>exposição repetida</strong> é uma das formas mais eficazes de reduzir a ansiedade e a síndrome do impostor. Cada vez que falas do teu valor e recebes feedback positivo, a voz do impostor perde volume. O BNI é, involuntariamente, uma terapia de exposição semanal."
-            },
-            // 11 — MITO
-            {
-                cat: "mito", catLabel: "MITO", catClass: "cat-myth",
-                question: "\"Fake it till you make it\" é recomendado pela psicologia como estratégia contra a síndrome do impostor.",
-                options: ["Verdadeiro", "Falso"],
-                correct: 1,
-                explanation: "<strong>Falso.</strong> Estudos mostram que fingir pode reforçar a sensação de fraude — \"se tenho de fingir, é porque realmente não sou bom\". O mais eficaz é <strong>reconhecer conquistas reais</strong> e construir autoconfiança autêntica."
-            },
-            // 12 — BNI / AÇÃO
-            {
-                cat: "dica", catLabel: "AÇÃO PRÁTICA", catClass: "cat-tip",
-                question: "Com base no que aprendeste, qual a ação mais eficaz para combater o impostor dentro do BNI?",
-                options: [
-                    "Evitar situações que geram desconforto",
-                    "Trabalhar mais horas para provar o teu valor",
-                    "Falar abertamente sobre isso nos 1-to-1s e registar as tuas conquistas semanalmente",
-                    "Mudar de grupo de networking"
-                ],
-                correct: 2,
-                explanation: "A ciência é clara: <strong>falar + registar</strong> são as duas armas mais fortes. Usa os 1-to-1s do BNI para normalizar o tema. E mantém um registo semanal de referências, TYFCB e feedback positivo. Quando o impostor falar, tens provas escritas de que ele mente."
+                question: "Sentes que os outros membros do BNI são mais competentes e merecedores do que tu?",
+                explanation: "Se respondeste sim, não estás sozinho. 70% das pessoas sentem o mesmo em algum momento. O facto de estares neste quiz mostra que queres crescer. Isso já é mérito."
             }
         ];
 
         let currentQ = 0;
-        let score = 0;
-        let answered = false;
+        let yesCount = 0;
 
         function generateQR() {
             const url = window.location.href;
             document.getElementById('urlDisplay').textContent = url;
-            if (typeof qrcode !== 'undefined') {
-                const qr = qrcode(0, 'M');
-                qr.addData(url);
-                qr.make();
-                document.getElementById('qrcode').innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2, scalable: true });
-                const svg = document.querySelector('#qrcode svg');
-                if (svg) { svg.style.width = '180px'; svg.style.height = '180px'; }
-            }
+            const img = document.createElement('img');
+            img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url);
+            img.alt = 'QR Code';
+            img.style.width = '180px';
+            img.style.height = '180px';
+            img.style.borderRadius = '8px';
+            img.onerror = function() {
+                document.getElementById('qrcode').innerHTML = '<p style="font-size:14px;color:var(--accent-light);word-break:break-all;">' + url + '</p>';
+            };
+            document.getElementById('qrcode').appendChild(img);
         }
 
         function startQuiz() {
             document.getElementById('welcome').classList.remove('active');
             document.getElementById('quiz').classList.add('active');
             currentQ = 0;
-            score = 0;
+            yesCount = 0;
             loadQuestion();
         }
 
         function loadQuestion() {
-            answered = false;
             const q = questions[currentQ];
-            document.getElementById('questionNum').textContent = `${currentQ + 1} / ${questions.length}`;
-            document.getElementById('scoreDisplay').textContent = `✓ ${score}`;
-            document.getElementById('progressFill').style.width = `${((currentQ) / questions.length) * 100}%`;
+            document.getElementById('questionNum').textContent = (currentQ + 1) + ' / ' + questions.length;
+            document.getElementById('scoreDisplay').textContent = 'Sim: ' + yesCount;
+            document.getElementById('progressFill').style.width = ((currentQ) / questions.length * 100) + '%';
             document.getElementById('questionText').textContent = q.question;
-
-            const badge = document.getElementById('categoryBadge');
-            badge.innerHTML = `<span class="category-badge ${q.catClass}">${q.catLabel}</span>`;
 
             const expl = document.getElementById('explanation');
             expl.classList.remove('show');
@@ -618,33 +479,29 @@
 
             const container = document.getElementById('optionsContainer');
             container.innerHTML = '';
-            const letters = ['A', 'B', 'C', 'D'];
 
-            q.options.forEach((opt, i) => {
+            ['Sim', 'Não'].forEach(function(opt, i) {
                 const div = document.createElement('div');
                 div.className = 'option';
-                div.innerHTML = `<span class="letter">${letters[i]}</span><span>${opt}</span>`;
-                div.onclick = () => selectOption(i);
+                div.innerHTML = '<span class="letter">' + (i === 0 ? 'S' : 'N') + '</span><span>' + opt + '</span>';
+                div.onclick = function() { selectOption(i); };
                 container.appendChild(div);
             });
         }
 
         function selectOption(index) {
-            if (answered) return;
-            answered = true;
-
             const q = questions[currentQ];
             const options = document.querySelectorAll('.option');
 
-            options.forEach((opt, i) => {
+            options.forEach(function(opt, i) {
                 opt.style.pointerEvents = 'none';
-                if (i === q.correct) opt.classList.add('correct');
-                else if (i === index) opt.classList.add('wrong');
+                if (i === 0) opt.classList.add(index === 0 ? 'yes' : 'no');
+                if (i === 1) opt.classList.add(index === 1 ? 'no' : 'yes');
             });
 
-            if (index === q.correct) {
-                score++;
-                document.getElementById('scoreDisplay').textContent = `✓ ${score}`;
+            if (index === 0) {
+                yesCount++;
+                document.getElementById('scoreDisplay').textContent = 'Sim: ' + yesCount;
             }
 
             const expl = document.getElementById('explanation');
@@ -663,7 +520,7 @@
                 showResult();
             } else {
                 document.getElementById('quiz').classList.remove('active');
-                setTimeout(() => {
+                setTimeout(function() {
                     document.getElementById('quiz').classList.add('active');
                     loadQuestion();
                 }, 50);
@@ -674,54 +531,58 @@
             document.getElementById('quiz').classList.remove('active');
             document.getElementById('result').classList.add('active');
 
-            const pct = Math.round((score / questions.length) * 100);
-            document.getElementById('scoreBig').textContent = `${score}/${questions.length}`;
-            document.getElementById('statCorrect').textContent = score;
-            document.getElementById('statWrong').textContent = questions.length - score;
-            document.getElementById('statPercent').textContent = `${pct}%`;
+            var pct = Math.round((yesCount / questions.length) * 100);
+            document.getElementById('scoreBig').textContent = yesCount + '/10';
+            document.getElementById('statYes').textContent = yesCount;
+            document.getElementById('statNo').textContent = questions.length - yesCount;
+            document.getElementById('statPercent').textContent = pct + '%';
 
-            let icon, title, level, desc;
-            if (pct >= 90) {
-                icon = '🏆'; title = 'Impressionante!';
-                level = 'Expert em Síndrome do Impostor';
-                desc = 'Conheces o tema a fundo. Usa este conhecimento para ajudar quem está à tua volta no BNI — provavelmente muitos passam por isto sem saber o que é. Sê a pessoa que normaliza esta conversa.';
-                launchConfetti();
-            } else if (pct >= 70) {
-                icon = '🌟'; title = 'Muito Bem!';
-                level = 'Conhecedor do Tema';
-                desc = 'Tens uma boa base. Sabes identificar os sinais e isso é meio caminho andado. Partilha o que aprendeste hoje num 1-to-1 — pode fazer a diferença para alguém.';
-                launchConfetti();
-            } else if (pct >= 50) {
-                icon = '📚'; title = 'Bom Começo!';
-                level = 'Em Aprendizagem';
-                desc = 'Sabes o essencial, mas há nuances que fazem diferença. O facto de teres feito este quiz mostra que queres aprender — e isso já é uma forma de combater o impostor.';
+            var icon, title, level, desc;
+            if (yesCount <= 2) {
+                icon = '💪';
+                title = 'Impostor Fraco!';
+                level = 'Baixa probabilidade de Síndrome do Impostor';
+                desc = 'Parabéns! Tens uma relação saudável com o teu valor profissional. Continua a ser referência para outros membros do BNI que possam estar a lutar com isto. A tua estabilidade é contagiosa.';
+            } else if (yesCount <= 4) {
+                icon = '🌤️';
+                title = 'Alguns Sinais';
+                level = 'Sinais ligeiros de Síndrome do Impostor';
+                desc = 'Há situações em que o impostor aparece, mas não te controla. Reconhecer os sinais é meio caminho andado. Usa os 1-to-1s do BNI para falar sobre isto. Provavelmente, outros sentem o mesmo.';
+            } else if (yesCount <= 7) {
+                icon = '⚠️';
+                title = 'Atenção!';
+                level = 'Sinais moderados de Síndrome do Impostor';
+                desc = 'O impostor está a ter impacto real no teu networking e negócios. Estás a deixar passar oportunidades por medo, não por falta de capacidade. Começa pelo Diário de Vitórias: regista cada referência, cada TYFCB, cada elogio.';
             } else {
-                icon = '💡'; title = 'O Impostor Adora o Escuro';
-                level = 'Descobridor';
-                desc = 'A ignorância sobre o tema é o terreno fértil do impostor. Agora que sabes o que não sabias, já tens poder sobre isto. Partilha o que aprendeste hoje com o teu grupo.';
+                icon = '🚨';
+                title = 'Impostor Ativo!';
+                level = 'Sinais fortes de Síndrome do Impostor';
+                desc = 'O impostor está a controlar muitas das tuas decisões no BNI. Não estás sozinho: 70% das pessoas passam por isto. A boa notícia? O BNI é um dos melhores antídotos. Fala com o teu coordenador, marca 1-to-1s, e começa a registar as tuas conquistas. O impostor perde força quando falas dele.';
             }
 
             document.getElementById('resultIcon').textContent = icon;
             document.getElementById('resultTitle').textContent = title;
             document.getElementById('resultLevel').textContent = level;
             document.getElementById('resultDesc').textContent = desc;
+
+            if (yesCount <= 4) launchConfetti();
         }
 
         function restartQuiz() {
             document.getElementById('result').classList.remove('active');
             document.getElementById('welcome').classList.add('active');
             currentQ = 0;
-            score = 0;
+            yesCount = 0;
         }
 
         function launchConfetti() {
-            const canvas = document.getElementById('confetti');
-            const ctx = canvas.getContext('2d');
+            var canvas = document.getElementById('confetti');
+            var ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const particles = [];
-            const colors = ['#6366f1', '#818cf8', '#c084fc', '#22c55e', '#f59e0b', '#ec4899'];
-            for (let i = 0; i < 80; i++) {
+            var particles = [];
+            var colors = ['#6366f1', '#818cf8', '#c084fc', '#22c55e', '#f59e0b', '#ec4899'];
+            for (var i = 0; i < 80; i++) {
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height - canvas.height,
@@ -734,10 +595,10 @@
                     vr: (Math.random() - 0.5) * 10
                 });
             }
-            let frame = 0;
+            var frame = 0;
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                particles.forEach(p => {
+                particles.forEach(function(p) {
                     p.y += p.vy; p.x += p.vx; p.rot += p.vr;
                     ctx.save();
                     ctx.translate(p.x, p.y);
