@@ -49,8 +49,8 @@
         .welcome { text-align: center; padding: 40px 20px; }
 
         .welcome-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
+            font-size: 40px;
+            margin-bottom: 10px;
             animation: pulse 2s infinite;
         }
 
@@ -60,20 +60,20 @@
         }
 
         .welcome h1 {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--accent-light), #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
-            line-height: 1.3;
+            margin-bottom: 8px;
+            line-height: 1.2;
         }
 
         .welcome p {
             color: var(--muted);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 6px;
         }
 
         .bni-tag {
@@ -90,17 +90,17 @@
         }
 
         .bni-logo {
-            width: 160px;
-            margin: 0 auto 20px;
+            width: 100px;
+            margin: 0 auto 10px;
             display: block;
         }
 
         .qr-section {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            margin: 24px 0;
+            border-radius: 12px;
+            padding: 14px;
+            margin: 12px 0;
         }
 
         .qr-section h3 {
@@ -387,7 +387,7 @@
                     <li><strong>📝 Diário de Vitórias:</strong> Regista cada referência recebida, cada TYFCB, cada parabéns. Quando o impostor falar, lê o caderno.</li>
                     <li><strong>🤝 1-to-1s:</strong> Marca cafés com colegas do BNI. Ouvir que outros passam pelo mesmo reduz o isolamento do impostor.</li>
                     <li><strong>🎯 Fala do teu valor:</strong> Os 60 segundos são o teu treino semanal. Quanto mais praticas, mais o impostor perde força.</li>
-                    <li><strong>Givers Gain:</strong> Ao ajudar outros, ganhas perspetiva. O teu contributo é real e mensurável.</li>
+                    <li><strong>🎁 Givers Gain:</strong> Ao ajudar outros, ganhas perspetiva. O teu contributo é real e mensurável.</li>
                 </ul>
             </div>
 
@@ -448,8 +448,8 @@
             const img = document.createElement('img');
             img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(url);
             img.alt = 'QR Code';
-            img.style.width = '180px';
-            img.style.height = '180px';
+            img.style.width = '120px';
+            img.style.height = '120px';
             img.style.borderRadius = '8px';
             img.onerror = function() {
                 document.getElementById('qrcode').innerHTML = '<p style="font-size:14px;color:var(--accent-light);word-break:break-all;">' + url + '</p>';

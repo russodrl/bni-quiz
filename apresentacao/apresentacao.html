@@ -359,7 +359,7 @@
             <div class="url-hint" id="urlHint"></div>
             <noscript><p style="margin-top:12px;font-size:14px;color:var(--accent-light);">https://russodrl.github.io/bni-quiz/</p></noscript>
         </div>
-        <a href="https://russodrl.github.io/bni-quiz/bni/me/2026/0805-sindrome-impostor/quiz/" class="btn-quiz">Abrir Quiz ▸</a>
+        <a href="https://russodrl.github.io/bni-quiz/quiz/" class="btn-quiz">Abrir Quiz ▸</a>
     </div>
 
     <!-- NAVIGATION -->
@@ -411,7 +411,7 @@
 
         // QR Code
         function generateQR() {
-            var quizUrl = 'https://russodrl.github.io/bni-quiz/bni/me/2026/0805-sindrome-impostor/quiz/';
+            var quizUrl = 'https://russodrl.github.io/bni-quiz/quiz/';
             document.getElementById('urlHint').textContent = quizUrl;
             var img = document.createElement('img');
             img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(quizUrl);
