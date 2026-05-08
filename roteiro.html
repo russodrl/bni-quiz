@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roteiro — Síndrome do Impostor & BNI Porto</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --card: #12121a; --border: #1e1e2e;
+            --text: #e4e4e7; --muted: #71717a; --accent: #6366f1;
+            --accent-light: #818cf8; --green: #22c55e; --orange: #f59e0b;
+        }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
+            min-height: 100vh; padding: 20px; line-height: 1.7;
+        }
+        .container { max-width: 680px; margin: 0 auto; }
+
+        .header { text-align: center; padding: 40px 20px 30px; }
+        .header .bni-tag {
+            display: inline-block; padding: 6px 16px;
+            background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2);
+            border-radius: 20px; font-size: 12px; color: var(--accent-light);
+            font-weight: 700; letter-spacing: 1px; margin-bottom: 16px;
+        }
+        .header h1 {
+            font-size: 26px; font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 8px; line-height: 1.3;
+        }
+        .header p { color: var(--muted); font-size: 14px; }
+
+        .nav-bar {
+            display: flex; gap: 8px; overflow-x: auto; padding: 0 0 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-btn {
+            flex-shrink: 0; padding: 8px 16px; border-radius: 20px;
+            background: var(--card); border: 1px solid var(--border);
+            color: var(--muted); font-size: 12px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif;
+            text-decoration: none;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            border-color: var(--accent); color: var(--accent-light);
+            background: rgba(99,102,241,0.08);
+        }
+
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+            width: 2px; background: var(--border);
+        }
+
+        .block {
+            position: relative; margin-bottom: 32px;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .block::before {
+            content: ''; position: absolute; left: -24px; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent); border: 2px solid var(--bg);
+        }
+
+        .block-header {
+            display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
+        }
+        .block-time {
+            padding: 4px 12px; border-radius: 8px; font-size: 12px;
+            font-weight: 700; font-family: 'Inter', sans-serif;
+        }
+        .time-blue { background: rgba(99,102,241,0.15); color: var(--accent-light); }
+        .time-orange { background: rgba(245,158,11,0.15); color: var(--orange); }
+        .time-green { background: rgba(34,197,94,0.15); color: var(--green); }
+        .time-purple { background: rgba(192,132,252,0.15); color: #c084fc; }
+
+        .block h2 { font-size: 18px; font-weight: 700; }
+
+        .card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px; margin-bottom: 12px;
+        }
+
+        .action {
+            display: flex; align-items: flex-start; gap: 10px;
+            margin-bottom: 10px; font-size: 14px; color: var(--muted);
+        }
+        .action:last-child { margin-bottom: 0; }
+        .action-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+
+        .speech {
+            background: rgba(99,102,241,0.05); border-left: 3px solid var(--accent);
+            padding: 16px 20px; border-radius: 0 12px 12px 0;
+            margin: 12px 0; font-style: italic; font-size: 15px;
+            line-height: 1.7; color: var(--text);
+        }
+        .speech strong { color: var(--accent-light); font-style: normal; }
+
+        .pause-indicator {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 16px; background: rgba(245,158,11,0.08);
+            border: 1px dashed rgba(245,158,11,0.3);
+            border-radius: 8px; font-size: 13px; color: var(--orange);
+            margin: 8px 0; font-weight: 600;
+        }
+
+        .topic-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 20px;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+        }
+        .badge-bni { background: rgba(0,102,204,0.15); color: #60a5fa; }
+        .badge-science { background: rgba(99,102,241,0.15); color: var(--accent-light); }
+        .badge-business { background: rgba(245,158,11,0.15); color: var(--orange); }
+        .badge-action { background: rgba(34,197,94,0.15); color: var(--green); }
+
+        .tips-section {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 24px; margin: 32px 0;
+        }
+        .tips-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+        .tip {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 12px 0; border-bottom: 1px solid var(--border);
+            font-size: 14px; color: var(--muted); line-height: 1.5;
+        }
+        .tip:last-child { border-bottom: none; }
+        .tip-icon { font-size: 18px; flex-shrink: 0; }
+        .tip strong { color: var(--text); }
+
+        .quiz-link {
+            text-align: center; padding: 32px 20px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(192,132,252,0.08));
+            border: 1px solid rgba(99,102,241,0.15);
+            border-radius: 16px; margin: 32px 0;
+        }
+        .quiz-link h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .quiz-link p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+        .btn {
+            display: inline-block; padding: 12px 28px; border-radius: 12px;
+            font-size: 15px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; text-decoration: none; font-family: 'Inter', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white; box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(99,102,241,0.4); }
+
+        .presenter-info {
+            text-align: center; padding: 24px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; margin-top: 24px;
+        }
+        .presenter-info .name { font-weight: 700; font-size: 16px; }
+        .presenter-info .company { font-size: 14px; color: var(--accent-light); }
+        .presenter-info .role { font-size: 12px; color: var(--muted); }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 21px; }
+            .block h2 { font-size: 16px; }
+            .speech { font-size: 14px; padding: 14px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="bni-tag">BNI PORTO</div>
+            <h1>Síndrome do Impostor<br>&amp; Networking</h1>
+            <p>Roteiro de apresentação • 5 minutos</p>
+        </div>
+
+        <nav class="nav-bar">
+            <a class="nav-btn active" href="#abertura">🎤 Abertura</a>
+            <a class="nav-btn" href="#quiz">🧠 Quiz ao Vivo</a>
+            <a class="nav-btn" href="#impacto">💼 Impacto</a>
+            <a class="nav-btn" href="#fecho">🎯 Fecho</a>
+            <a class="nav-btn" href="#dicas">💡 Dicas</a>
+        </nav>
+
+        <div class="timeline">
+            <!-- BLOCO 1 -->
+            <div class="block" id="abertura">
+                <div class="block-header">
+                    <span class="block-time time-blue">0:00 - 0:50</span>
+                    <h2>🎤 Abertura</h2>
+                </div>
+                <div class="card">
+                    <div class="action">
+                        <span class="action-icon">📺</span>
+                        <span>Mostrar ecrã com QR code do quiz</span>
+                    </div>
+                </div>
+
+                <div class="speech">
+                    "Boa dia a todos. Quero começar com uma pergunta:<br><br>
+                    <strong>Quem aqui, pelo menos uma vez, teve a sensação de que não merecia estar numa sala? Que alguém ia descobrir que vocês não são tão bons quanto parecem?</strong>"
+                </div>
+
+                <div class="pause-indicator">⏸️ Pausa — deixar reagirem (3-4 segundos)</div>
+
+                <div class="speech">
+                    "Não? Ninguém? ...Mentira. E isso tem nome: <strong>Síndrome do Impostor</strong>. Afeta 70% das pessoas em algum momento da vida. E hoje vou-vos provar que o vosso impostor vos está a custar dinheiro e referências."
+                </div>
+
+                <div class="speech">
+                    "Mas primeiro: tirem o telemóvel e <strong>escaneiem este QR code</strong>. É um quiz rápido — 12 perguntas, 3 minutos. Vamos ver quanto é que vocês realmente sabem sobre isto."
+                </div>
+
+                <div class="card">
+                    <div class="action">
+                        <span class="action-icon">⏱️</span>
+                        <span>Esperar 20-30 segundos para abrirem o quiz no telemóvel</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 2 -->
+            <div class="block" id="quiz">
+                <div class="block-header">
+                    <span class="block-time time-orange">0:50 - 2:40</span>
+                    <h2>🧠 Quiz ao Vivo</h2>
+                </div>
+                <div class="card">
+                    <div class="action">
+                        <span class="action-icon">💬</span>
+                        <span>"Vou escolher <strong>3 perguntas</strong> do quiz para fazermos juntos."</span>
+                    </div>
+                </div>
+
+                <!-- Pergunta 1 -->
+                <div class="card" style="margin-top: 16px;">
+                    <span class="topic-badge badge-bni">BNI</span>
+                    <h3 style="font-size: 15px; font-weight: 700; margin: 10px 0;">Pergunta 1 — Referências no BNI</h3>
+                    <div class="speech" style="margin-top: 0;">
+                        "No BNI, pedir referências é essencial. <strong>Como é que a síndrome do impostor afeta diretamente isto?</strong>"
+                    </div>
+                    <div class="pause-indicator">⏸️ Deixar o público responder</div>
+                    <div class="speech" style="margin-top: 8px;">
+                        "Faz-nos evitar pedir. Porquê? Porque o impostor diz: <strong>'não mereço'</strong>, ou 'se pedir, vão descobrir que não sou tão bom'. Resultado? Menos referências pedidas. Menos negócios fechados. Impacto direto na vossa carteira."
+                    </div>
+                </div>
+
+                <!-- Pergunta 2 -->
+                <div class="card">
+                    <span class="topic-badge badge-bni">BNI</span>
+                    <h3 style="font-size: 15px; font-weight: 700; margin: 10px 0;">Pergunta 2 — BNI como antídoto</h3>
+                    <div class="speech" style="margin-top: 0;">
+                        "O BNI tem apresentações semanais de 60 segundos e 10 minutos. <strong>Isto ajuda ou piora a síndrome do impostor?</strong>"
+                    </div>
+                    <div class="pause-indicator">⏸️ Deixar discutirem</div>
+                    <div class="speech" style="margin-top: 8px;">
+                        "Ajuda. E muito. A <strong>exposição repetida</strong> é uma das formas mais eficazes de reduzir a voz do impostor. Cada vez que falamos do nosso valor e recebemos feedback positivo, o impostor perde volume. O BNI é, sem saber, uma <strong>terapia de exposição semanal</strong>."
+                    </div>
+                </div>
+
+                <!-- Pergunta 3 -->
+                <div class="card">
+                    <span class="topic-badge badge-science">MITO</span>
+                    <h3 style="font-size: 15px; font-weight: 700; margin: 10px 0;">Pergunta 3 — Fake it till you make it</h3>
+                    <div class="speech" style="margin-top: 0;">
+                        "'Fake it till you make it' — <strong>bom conselho?</strong>"
+                    </div>
+                    <div class="pause-indicator">⏸️ Deixar reagirem</div>
+                    <div class="speech" style="margin-top: 8px;">
+                        "Mito. Estudos mostram que fingir pode reforçar a sensação de fraude — 'se tenho de fingir, é porque realmente não sou bom'. O que funciona? <strong>Reconhecer conquistas reais</strong>. E o BNI ajuda nisso — cada referência passada, cada TYFCB, cada parabéns de um colega é evidência concreta de que o impostor mente."
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 3 -->
+            <div class="block" id="impacto">
+                <div class="block-header">
+                    <span class="block-time time-green">2:40 - 4:00</span>
+                    <h2>💼 Impacto nos Negócios</h2>
+                </div>
+
+                <div class="speech">
+                    "Agora, o que é que isto <strong>custa em euros?</strong>"
+                </div>
+
+                <div class="card">
+                    <div class="action">
+                        <span class="action-icon">💰</span>
+                        <span><strong>Precificação.</strong> Quantos de vocês já cobraram menos do que deviam porque achavam que não eram 'bons o suficiente'? O impostor adora descontos.</span>
+                    </div>
+                    <div class="action">
+                        <span class="action-icon">👁️</span>
+                        <span><strong>Visibilidade.</strong> Quantas oportunidades de networking, de referência, de falar do vosso trabalho deixaram passar porque 'não era o momento'?</span>
+                    </div>
+                    <div class="action">
+                        <span class="action-icon">🔥</span>
+                        <span><strong>Exaustão.</strong> O impostor faz-nos trabalhar o dobro para 'compensar'. Burnout não é badge de honra.</span>
+                    </div>
+                </div>
+
+                <div class="pause-indicator">⏸️ Pausa dramática (2 segundos)</div>
+
+                <div class="speech">
+                    "Mas há boas notícias. <strong>Três coisas que funcionam:</strong>"
+                </div>
+
+                <div class="card" style="border-color: rgba(34,197,94,0.2);">
+                    <div class="action">
+                        <span class="action-icon">📝</span>
+                        <span><strong>Diário de Vitórias.</strong> Registem cada referência recebida, cada TYFCB, cada parabéns. Quando o impostor falar, abram o caderno e leiam o que já fizeram.</span>
+                    </div>
+                    <div class="action">
+                        <span class="action-icon">🤝</span>
+                        <span><strong>1-to-1s.</strong> Marquem cafés com colegas do BNI. Ouvir que outros passam pelo mesmo é poderoso. O impostor adora o silêncio.</span>
+                    </div>
+                    <div class="action">
+                        <span class="action-icon">🎁</span>
+                        <span><strong>Givers Gain.</strong> Ao ajudar outros, ganham perspetiva. O vosso contributo é real e mensurável. Cada referência passada é prova de que vocês têm valor.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCO 4 -->
+            <div class="block" id="fecho">
+                <div class="block-header">
+                    <span class="block-time time-purple">4:00 - 5:00</span>
+                    <h2>🎯 Fecho</h2>
+                </div>
+
+                <div class="speech">
+                    "O BNI é, na minha opinião, um dos <strong>melhores antídotos</strong> para a síndrome do impostor. Aqui somos obrigados a falar do nosso valor. A pedir referências. A celebrar os sucessos uns dos outros."
+                </div>
+
+                <div class="speech">
+                    "Se hoje levarem uma coisa, levem esta: <strong>o vosso impostor mente-vos.</strong> Vocês estão nesta sala porque alguém acredita no que fazem. Provavelmente muitos 'alguéns'."
+                </div>
+
+                <div class="speech">
+                    "E se ainda não fizeram o quiz — escaneiem o QR code agora. É uma boa forma de <strong>começar a conversa</strong> com quem está ao vosso lado."
+                </div>
+
+                <div class="card">
+                    <div class="action">
+                        <span class="action-icon">😊</span>
+                        <span><strong>Sorrir. Acabar.</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIPS -->
+        <div class="tips-section" id="dicas">
+            <h3>💡 Dicas de Apresentação</h3>
+            <div class="tip">
+                <span class="tip-icon">🗣️</span>
+                <span><strong>Tom:</strong> Conversacional, como se fosses o colega que já passou por isto. Não professoral.</span>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">⏸️</span>
+                <span><strong>Pausas:</strong> O silêncio de 2-3 segundos depois de uma pergunta é poderoso. Não tenhas medo do vazio.</span>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">📱</span>
+                <span><strong>QR Code:</strong> Abre no portátil e projeta. Se falhar, partilha o URL verbalmente.</span>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">⏱️</span>
+                <span><strong>Timing:</strong> Se estiveres atrasado, corta uma pergunta do quiz ao vivo. O bloco 3 é o mais importante.</span>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">🙋</span>
+                <span><strong>Participação:</strong> O BNI adora interatividade. Faz perguntas, espera respostas, envolve a sala.</span>
+            </div>
+            <div class="tip">
+                <span class="tip-icon">📊</span>
+                <span><strong>Quiz ao vivo:</strong> Escolhe 3 perguntas variadas (BNI + ciência + mito). Não leias todas — deixa o pessoal explorar as restantes no telemóvel.</span>
+            </div>
+        </div>
+
+        <!-- CTA QUIZ -->
+        <div class="quiz-link">
+            <h3>🧠 Fazer o Quiz</h3>
+            <p>12 perguntas interativas sobre síndrome do impostor e BNI</p>
+            <a href="index.html" class="btn btn-primary">Abrir Quiz ▸</a>
+        </div>
+
+        <!-- PRESENTER -->
+        <div class="presenter-info">
+            <div class="name">[O TEU NOME]</div>
+            <div class="company">[A TUA EMPRESA]</div>
+            <div class="role">BNI Porto</div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll for nav
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Active nav on scroll
+        const sections = ['abertura', 'quiz', 'impacto', 'fecho', 'dicas'];
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top < 200) current = id;
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('href') === '#' + current);
+            });
+        });
+    </script>
+</body>
+</html>
