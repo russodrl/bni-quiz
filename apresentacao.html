@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Síndrome do Impostor — BNI Porto</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0f; --card: #12121a; --border: #1e1e2e;
+            --text: #e4e4e7; --muted: #71717a; --accent: #6366f1;
+            --accent-light: #818cf8; --green: #22c55e; --orange: #f59e0b;
+        }
+        body {
+            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
+            height: 100vh; overflow: hidden; cursor: default;
+        }
+
+        /* SLIDE SYSTEM */
+        .slide {
+            display: none; height: 100vh; width: 100vw;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px 60px; text-align: center; position: relative;
+            animation: slideIn 0.3s ease;
+        }
+        .slide.active { display: flex; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* NAV */
+        .nav {
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            display: flex; align-items: center; gap: 16px; z-index: 100;
+            background: rgba(18,18,26,0.9); border: 1px solid var(--border);
+            padding: 10px 20px; border-radius: 50px; backdrop-filter: blur(10px);
+        }
+        .nav button {
+            background: none; border: none; color: var(--muted); cursor: pointer;
+            font-size: 20px; padding: 6px 12px; border-radius: 8px; transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .nav button:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+        .nav .counter { font-size: 13px; color: var(--muted); font-weight: 600; min-width: 50px; }
+        .nav .progress-mini {
+            width: 100px; height: 3px; background: var(--border); border-radius: 3px; overflow: hidden;
+        }
+        .nav .progress-mini-fill {
+            height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.3s;
+        }
+
+        /* SLIDE TYPES */
+        .slide-title h1 {
+            font-size: 52px; font-weight: 900; line-height: 1.15; margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-light), #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .slide-title .subtitle { font-size: 20px; color: var(--muted); font-weight: 400; }
+        .slide-title .tag {
+            display: inline-block; padding: 8px 20px; background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.2); border-radius: 24px;
+            font-size: 13px; color: var(--accent-light); font-weight: 700;
+            letter-spacing: 1.5px; margin-bottom: 20px;
+        }
+
+        .slide-question h2 {
+            font-size: 36px; font-weight: 800; line-height: 1.3; margin-bottom: 24px;
+        }
+        .slide-question .options-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 700px; width: 100%;
+        }
+        .slide-question .opt {
+            background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 20px 24px; font-size: 18px; font-weight: 600; text-align: left;
+            display: flex; align-items: center; gap: 14px; transition: all 0.2s;
+        }
+        .slide-question .opt .letter {
+            width: 36px; height: 36px; border-radius: 10px; background: var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 16px; flex-shrink: 0;
+        }
+
+        .slide-stat .big-number {
+            font-size: 120px; font-weight: 900; line-height: 1;
+            background: linear-gradient(135deg, var(--accent-light), #c084fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .slide-stat h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+        .slide-stat p { font-size: 18px; color: var(--muted); max-width: 500px; line-height: 1.6; }
+
+        .slide-list { text-align: left; max-width: 700px; width: 100%; }
+        .slide-list h2 {
+            font-size: 32px; font-weight: 800; margin-bottom: 28px; text-align: center;
+        }
+        .slide-list .item {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 18px 0; border-bottom: 1px solid var(--border);
+            font-size: 18px; line-height: 1.5;
+        }
+        .slide-list .item:last-child { border-bottom: none; }
+        .slide-list .item-icon { font-size: 28px; flex-shrink: 0; margin-top: -2px; }
+        .slide-list .item strong { color: var(--text); }
+        .slide-list .item span { color: var(--muted); }
+
+        .slide-quote blockquote {
+            font-size: 30px; font-weight: 600; line-height: 1.5;
+            max-width: 700px; font-style: italic; color: var(--text);
+            border-left: 4px solid var(--accent); padding-left: 24px;
+            text-align: left;
+        }
+        .slide-quote .attribution {
+            margin-top: 16px; font-size: 14px; color: var(--muted); text-align: left;
+            max-width: 700px; width: 100%;
+        }
+
+        .slide-cta h2 {
+            font-size: 36px; font-weight: 800; margin-bottom: 16px;
+        }
+        .slide-cta p { font-size: 18px; color: var(--muted); margin-bottom: 24px; max-width: 500px; line-height: 1.6; }
+        .slide-cta .qr-box {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 24px; margin-top: 16px;
+        }
+        .slide-cta .qr-box h3 { font-size: 14px; color: var(--accent-light); margin-bottom: 12px; }
+        #qrcode { display: flex; justify-content: center; margin: 8px 0; }
+        .slide-cta .url-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+        .slide-timeline { text-align: left; max-width: 700px; width: 100%; }
+        .slide-timeline h2 { font-size: 28px; font-weight: 800; margin-bottom: 24px; text-align: center; }
+        .timeline-row {
+            display: flex; align-items: center; gap: 16px;
+            padding: 14px 0; border-bottom: 1px solid var(--border);
+        }
+        .timeline-row:last-child { border-bottom: none; }
+        .timeline-row .time {
+            font-size: 14px; font-weight: 700; color: var(--accent-light); min-width: 80px;
+        }
+        .timeline-row .desc { font-size: 17px; color: var(--muted); }
+        .timeline-row .desc strong { color: var(--text); }
+
+        .emoji-big { font-size: 80px; margin-bottom: 20px; }
+
+        /* KEYBOARD HINT */
+        .key-hint {
+            position: fixed; top: 20px; right: 20px; font-size: 11px; color: #333;
+            background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .slide { padding: 24px 20px; }
+            .slide-title h1 { font-size: 32px; }
+            .slide-question h2 { font-size: 24px; }
+            .slide-question .options-grid { grid-template-columns: 1fr; }
+            .slide-stat .big-number { font-size: 80px; }
+            .slide-quote blockquote { font-size: 22px; }
+            .slide-list .item { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide slide-title active" id="s1">
+        <div class="tag">BNI PORTO</div>
+        <h1>Síndrome do Impostor</h1>
+        <p class="subtitle">O que é, como afeta os teus negócios, e o que podes fazer hoje</p>
+    </div>
+
+    <!-- SLIDE 2: QUESTION -->
+    <div class="slide slide-question" id="s2">
+        <h2>Quem aqui já sentiu que<br>não merecia estar onde está?</h2>
+        <div class="options-grid">
+            <div class="opt"><span class="letter">A</span> Já, várias vezes</div>
+            <div class="opt"><span class="letter">B</span> Às vezes</div>
+            <div class="opt"><span class="letter">C</span> Raramente</div>
+            <div class="opt"><span class="letter">D</span> Nunca (mentira 😄)</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: STAT -->
+    <div class="slide slide-stat" id="s3">
+        <div class="big-number">70%</div>
+        <h2>das pessoas experienciam a Síndrome do Impostor</h2>
+        <p>Em algum momento da vida. Não é um defeito vosso. É quase universal.</p>
+    </div>
+
+    <!-- SLIDE 4: WHAT IS IT -->
+    <div class="slide slide-list" id="s4">
+        <h2>O que é a Síndrome do Impostor?</h2>
+        <div class="item">
+            <span class="item-icon">🧠</span>
+            <div><strong>Um padrão de pensamento</strong> <span>— não um diagnóstico clínico. Mas com impacto real.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🔬</span>
+            <div><strong>Identificado em 1978</strong> <span>— pelas psicólogas Pauline Clance e Suzanne Imes.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🎭</span>
+            <div><strong>A crença de que não mereces o teu sucesso</strong> <span>— apesar de evidência objetiva em contrário.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🤫</span>
+            <div><strong>O medo de ser "descoberto"</strong> <span>— como se fosse uma fraude que vai ser exposta.</span></div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: MYTH -->
+    <div class="slide slide-quote" id="s5">
+        <div class="emoji-big">🚫</div>
+        <blockquote>"É só insegurança. Basta ter mais confiança."</blockquote>
+        <div class="attribution">Isto é um mito. A síndrome do impostor é um padrão cognitivo que persiste mesmo perante evidência objetiva de sucesso. Não se resolve com "pensamento positivo".</div>
+    </div>
+
+    <!-- SLIDE 6: WHO EXPERIENCES IT -->
+    <div class="slide slide-stat" id="s6">
+        <div class="emoji-big">🏆</div>
+        <h2>Quem experienciam mais?</h2>
+        <p style="font-size:22px; margin-top:16px;"><strong>Pessoas com alto sucesso e competência.</strong></p>
+        <p style="margin-top:8px;">Paradoxalmente, quanto mais bem-sucedida a pessoa, maior a probabilidade de sentir que "não é suficiente".</p>
+    </div>
+
+    <!-- SLIDE 7: 5 TYPES -->
+    <div class="slide slide-list" id="s7">
+        <h2>Os 5 Tipos de Impostor</h2>
+        <div class="item">
+            <span class="item-icon">🎯</span>
+            <div><strong>O Perfeccionista</strong> <span>— se não é perfeito, é um fracasso.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">📚</span>
+            <div><strong>O Expert</strong> <span>— precisa de saber tudo antes de agir.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">⚡</span>
+            <div><strong>O Génio Natural</strong> <span>— se precisa de esforço, não é bom o suficiente.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🦸</span>
+            <div><strong>O Super-homem</strong> <span>— precisa de trabalhar mais que todos para "merecer".</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🧑‍🤝‍🧑</span>
+            <div><strong>O Solo</strong> <span>— faz tudo sozinho porque pedir ajuda é fraqueza.</span></div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: BNI CONNECTION -->
+    <div class="slide slide-title" id="s8">
+        <div class="tag">E NO BNI?</div>
+        <h1 style="font-size: 42px;">Como a Síndrome do Impostor<br>afeta o teu networking</h1>
+    </div>
+
+    <!-- SLIDE 9: BNI IMPACT -->
+    <div class="slide slide-list" id="s9">
+        <h2>O Impostor no BNI</h2>
+        <div class="item">
+            <span class="item-icon">💰</span>
+            <div><strong>Desconto permanente</strong> <span>— cobras menos porque achas que não vale mais.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🙈</span>
+            <div><strong>Evitação de referências</strong> <span>— não pedes porque "não mereço" ou "não sou bom o suficiente".</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">😰</span>
+            <div><strong>60 segundos com medo</strong> <span>— falas rápido, subvalorizas o teu trabalho.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🔥</span>
+            <div><strong>Exaustão</strong> <span>— trabalhas o dobro para "compensar" a tua percebida incompetência.</span></div>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: FAKE IT -->
+    <div class="slide slide-quote" id="s10">
+        <div class="emoji-big">🎭</div>
+        <blockquote>"Fake it till you make it"</blockquote>
+        <div class="attribution">Mito. Estudos mostram que fingir pode reforçar a sensação de fraude. Se tenho de fingir, é porque realmente não sou bom. O que funciona é reconhecer conquistas reais.</div>
+    </div>
+
+    <!-- SLIDE 11: BNI AS ANTIDOTE -->
+    <div class="slide slide-title" id="s11">
+        <div class="tag" style="background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.2); color: var(--green);">A BOA NOTÍCIA</div>
+        <h1 style="font-size: 42px;">O BNI é um dos melhores<br>antídotos para o impostor</h1>
+    </div>
+
+    <!-- SLIDE 12: WHY BNI HELPS -->
+    <div class="slide slide-list" id="s12">
+        <h2>Porquê?</h2>
+        <div class="item">
+            <span class="item-icon">🎤</span>
+            <div><strong>60 segundos semanais</strong> <span>— exposição repetida reduz a voz do impostor. É terapia de exposição.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🤝</span>
+            <div><strong>1-to-1s</strong> <span>— ouvir que outros passam pelo mesmo é poderoso. O impostor adora o silêncio.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🎁</span>
+            <div><strong>Givers Gain</strong> <span>— ao ajudar outros, recebes validação concreta. Cada referência é prova de valor.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">📊</span>
+            <div><strong>TYFCB</strong> <span>— cada negócio fechado é evidência objetiva de que o impostor mente.</span></div>
+        </div>
+    </div>
+
+    <!-- SLIDE 13: 3 ACTIONS -->
+    <div class="slide slide-list" id="s13">
+        <h2>3 Ações para Hoje</h2>
+        <div class="item">
+            <span class="item-icon">📝</span>
+            <div><strong>Diário de Vitórias</strong> <span>— regista cada referência, TYFCB e feedback positivo. Quando o impostor falar, lê o caderno.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🗣️</span>
+            <div><strong>Fala sobre isto</strong> <span>— marca um 1-to-1 e partilha. Normalizar a experiência reduz o seu poder.</span></div>
+        </div>
+        <div class="item">
+            <span class="item-icon">🎯</span>
+            <div><strong>Reenquadra o erro</strong> <span>— erros são dados, não déficits de carácter. Cada falha é informação valiosa.</span></div>
+        </div>
+    </div>
+
+    <!-- SLIDE 14: QUOTE -->
+    <div class="slide slide-quote" id="s14">
+        <div class="emoji-big">💡</div>
+        <blockquote>"O vosso impostor mente-vos. Vocês estão nesta sala porque alguém acredita no que fazem."</blockquote>
+    </div>
+
+    <!-- SLIDE 15: QUIZ CTA -->
+    <div class="slide slide-cta" id="s15">
+        <div class="emoji-big">🧠</div>
+        <h2>Testa o que aprendeste</h2>
+        <p>12 perguntas interativas sobre Síndrome do Impostor e BNI</p>
+        <div class="qr-box">
+            <h3>📱 Escaneia com o telemóvel</h3>
+            <div id="qrcode"></div>
+            <div class="url-hint" id="urlHint"></div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav">
+        <button onclick="prev()" title="Anterior">◀</button>
+        <div class="progress-mini"><div class="progress-mini-fill" id="progressMini"></div></div>
+        <span class="counter" id="counter">1 / 15</span>
+        <button onclick="next()" title="Próximo">▶</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        let current = 0;
+
+        function show(n) {
+            slides[current].classList.remove('active');
+            current = Math.max(0, Math.min(n, slides.length - 1));
+            slides[current].classList.add('active');
+            document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+            document.getElementById('progressMini').style.width = `${((current + 1) / slides.length) * 100}%`;
+        }
+
+        function next() { show(current + 1); }
+        function prev() { show(current - 1); }
+
+        // Keyboard nav
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); next(); }
+            if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prev(); }
+            if (e.key === 'Home') { e.preventDefault(); show(0); }
+            if (e.key === 'End') { e.preventDefault(); show(slides.length - 1); }
+        });
+
+        // Touch nav
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+        });
+
+        // Click nav (left third = prev, right two-thirds = next)
+        document.addEventListener('click', e => {
+            if (e.target.closest('.nav') || e.target.closest('button') || e.target.closest('a')) return;
+            e.clientX < window.innerWidth / 3 ? prev() : next();
+        });
+
+        // QR Code
+        function generateQR() {
+            const quizUrl = window.location.href.replace(/\/[^\/]*$/, '/index.html');
+            document.getElementById('urlHint').textContent = quizUrl;
+            if (typeof qrcode !== 'undefined') {
+                const qr = qrcode(0, 'M');
+                qr.addData(quizUrl);
+                qr.make();
+                document.getElementById('qrcode').innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2, scalable: true });
+                const svg = document.querySelector('#qrcode svg');
+                if (svg) { svg.style.width = '200px'; svg.style.height = '200px'; }
+            }
+        }
+
+        window.onload = () => { show(0); generateQR(); };
+    </script>
+</body>
+</html>
