@@ -114,9 +114,9 @@
         }
 
         .slide-cta {
-            justify-content: flex-start !important;
-            padding-top: 15vh !important;
-            padding-bottom: 20px !important;
+            justify-content: center !important;
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
         }
         .slide-cta h2 {
             font-size: 36px; font-weight: 800; margin-bottom: 16px;
@@ -364,6 +364,8 @@
             slides[current].classList.add('active');
             document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
             document.getElementById('progressMini').style.width = `${((current + 1) / slides.length) * 100}%`;
+            // Hide nav bar on last slide (QR code slide)
+            document.querySelector('.nav').style.display = (current === slides.length - 1) ? 'none' : 'flex';
         }
 
         function next() { show(current + 1); }
