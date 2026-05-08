@@ -214,7 +214,7 @@
     <!-- SLIDE 6: WHO EXPERIENCES IT -->
     <div class="slide slide-stat" id="s6">
         <div class="emoji-big">🏆</div>
-        <h2>Quem experienciam mais?</h2>
+        <h2>Quem experiencia mais?</h2>
         <p style="font-size:22px; margin-top:16px;"><strong>Pessoas com alto sucesso e competência.</strong></p>
         <p style="margin-top:8px;">Paradoxalmente, quanto mais bem-sucedida a pessoa, maior a probabilidade de sentir que "não é suficiente".</p>
     </div>
@@ -337,6 +337,7 @@
             <h3>📱 Escaneia com o telemóvel</h3>
             <div id="qrcode"></div>
             <div class="url-hint" id="urlHint"></div>
+            <noscript><p style="margin-top:12px;font-size:14px;color:var(--accent-light);">https://russodrl.github.io/bni-quiz/</p></noscript>
         </div>
     </div>
 
@@ -348,7 +349,6 @@
         <button onclick="next()" title="Próximo">▶</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
     <script>
         const slides = document.querySelectorAll('.slide');
         let current = 0;
@@ -386,18 +386,22 @@
             e.clientX < window.innerWidth / 3 ? prev() : next();
         });
 
-        // QR Code
+        // QR Code — inline generation (no CDN dependency)
         function generateQR() {
-            const quizUrl = window.location.href.replace(/\/[^\/]*$/, '/index.html');
+            const quizUrl = 'https://russodrl.github.io/bni-quiz/';
             document.getElementById('urlHint').textContent = quizUrl;
-            if (typeof qrcode !== 'undefined') {
-                const qr = qrcode(0, 'M');
-                qr.addData(quizUrl);
-                qr.make();
-                document.getElementById('qrcode').innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2, scalable: true });
-                const svg = document.querySelector('#qrcode svg');
-                if (svg) { svg.style.width = '200px'; svg.style.height = '200px'; }
-            }
+            // Use API fallback for reliability
+            const img = document.createElement('img');
+            img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(quizUrl);
+            img.alt = 'QR Code para o Quiz';
+            img.style.width = '200px';
+            img.style.height = '200px';
+            img.style.borderRadius = '8px';
+            img.onerror = function() {
+                // Final fallback: show URL text
+                document.getElementById('qrcode').innerHTML = '<p style="font-size:14px;color:var(--accent-light);word-break:break-all;">' + quizUrl + '</p>';
+            };
+            document.getElementById('qrcode').appendChild(img);
         }
 
         window.onload = () => { show(0); generateQR(); };
